@@ -16,10 +16,6 @@ before(() => {
   main = require('../lib/testmain');
 });
 
-beforeEach(() => {
-    td.when(testLibBMock.read(ANY)).thenReturn(Promise.resolve({"hello": "bug"}));
-});
-
 afterEach(() => {
     td.reset();
 });
@@ -27,6 +23,8 @@ afterEach(() => {
 
 describe('The first module', () => {
   it('should do something', () => {
+    td.when(testLibBMock.read(ANY)).thenReturn(Promise.resolve({"hello": "bug"}));
+    
     return main.doSomething()
       .then(res => expect(res.hello).to.eq("bug"));
   });
